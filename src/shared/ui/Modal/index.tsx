@@ -10,28 +10,32 @@ interface IModalHeaderProps {
   children?: React.ReactNode;
   className?: string;
 }
-interface IModalProps {
+interface IModalBodyProps {
   children: React.ReactNode;
   className?: string;
 }
 
-export const Modal = () => {
+export const Modal = ({children, className=""}:IModalProps) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <Portal>
       <div className="modal">
-        <div className="modal__content">
-          <Header />
-        </div>
+        <div className="modal__content">{children}</div>
       </div>
     </Portal>
   );
 };
 
-const Header = ({ children }: IModalHeaderProps) => {
-  return <div className="modal__header">
-    <button>X</button>
-    {children}
-    </div>;
+Modal.Header = ({ children }: IModalHeaderProps) => {
+  return (
+    <div className="modal__header">
+      <button>X</button>
+      {children}
+    </div>
+  );
+};
+
+Modal.Body = ({ children, className = "" }: IModalBodyProps) => {
+  <div className={`modal__body ${className}`}>{children}</div>;
 };
